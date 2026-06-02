@@ -48,6 +48,7 @@ app.command("/dsb-catfact", async ({ ack, respond }) => {
     await respond({ text: "Couldn't fetch a cat fact right now." });
   }
 });
+
 app.command("/dsb-joker", async ({ ack, respond }) => {
   await ack();
   try {
