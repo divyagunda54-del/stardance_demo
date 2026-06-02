@@ -48,6 +48,15 @@ app.command("/dsb-catfact", async ({ ack, respond }) => {
     await respond({ text: "Couldn't fetch a cat fact right now." });
   }
 });
+app.command("/dsb-joker", async ({ ack, respond }) => {
+  await ack();
+  try {
+    const res = await axios.get("https://sellyourballs.com/api/jokes/random");
+    await respond({ text: res.data.joke });
+  } catch (e) {
+    await respond({ text: "Couldn't fetch a joke right now." });
+  }
+});
 
 app.command("/dsb-dadjoke", async ({ ack, respond }) => {
   await ack();
