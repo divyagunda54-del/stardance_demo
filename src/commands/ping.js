@@ -17,9 +17,9 @@ function registerPingCommand(app) {
     });
   });
 
-  // Hello slash command
+  // hello slash commands
   app.command('/hello', async ({ command, ack, respond }) => {
-    // Acknowledge the command request immediately
+    // Acknowledge the request immediately 
     await ack();
 
     // Respond back with a personalized greeting
