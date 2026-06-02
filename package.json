@@ -1,0 +1,14 @@
+{
+  "name": "hackclub-slackbot",
+  "version": "1.0.0",
+  "description": "Slackbot hosted on Nest",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.7.3",
+    "axios": "^1.16.1",
+    "dotenv": "^17.4.2"
+  }
+}
