@@ -13,17 +13,19 @@ echo "✅ Done"
 
 echo ""
 echo "📤 [Step 2/3] Uploading files..."
-scp -o ConnectTimeout=30 .env index.js package.json slackbot.service ${USER}@${HOST}:${DEST}/
+scp -o ConnectTimeout=30 .env index.js package.json package-lock.json slackbot.service ${USER}@${HOST}:${DEST}/
+scp -o ConnectTimeout=30 -r public ${USER}@${HOST}:${DEST}/
 if [ $? -ne 0 ]; then
   echo "❌ Upload failed. Retrying..."
   sleep 2
-  scp -o ConnectTimeout=30 .env index.js package.json slackbot.service ${USER}@${HOST}:${DEST}/
+  scp -o ConnectTimeout=30 .env index.js package.json package-lock.json slackbot.service ${USER}@${HOST}:${DEST}/
+  scp -o ConnectTimeout=30 -r public ${USER}@${HOST}:${DEST}/
 fi
 echo "✅ Files uploaded!"
 
 echo ""
 echo "⚙️ [Step 3/3] Installing dependencies and starting service..."
-ssh -o ConnectTimeout=30 ${USER}@${HOST} "cd ${DEST} && npm install && cp slackbot.service ~/.config/systemd/user/slackbot.service && systemctl --user daemon-reload && systemctl --user enable slackbot.service && systemctl --user restart slackbot.service && loginctl enable-linger && echo '🎉 Service started!' && systemctl --user status slackbot.service --no-pager" || true
+ssh -o ConnectTimeout=30 ${USER}@${HOST} "cd ${DEST} && npm ci && cp slackbot.service ~/.config/systemd/user/slackbot.service && systemctl --user daemon-reload && systemctl --user enable slackbot.service && systemctl --user restart slackbot.service && loginctl enable-linger && echo '🎉 Service started!' && systemctl --user status slackbot.service --no-pager" || true
 
 echo "----------------------------------------------"
 echo "🎉 DEPLOYMENT COMPLETE! Your Slackbot is hosted 24/7 on Nest!"

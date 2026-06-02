@@ -1,0 +1,62 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#050B14"/>
+      <stop offset="0.52" stop-color="#07111F"/>
+      <stop offset="1" stop-color="#050911"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(260 140) rotate(31) scale(330 260)">
+      <stop stop-color="#7DD3FC" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1360 120) rotate(160) scale(260 220)">
+      <stop stop-color="#7EE787" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#7EE787" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="0" y="0" width="1600" height="900" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="260" cy="140" r="220" fill="url(#glowA)" filter="url(#blur)"/>
+  <circle cx="1360" cy="120" r="180" fill="url(#glowB)" filter="url(#blur)"/>
+
+  <rect x="48" y="52" width="1504" height="796" rx="30" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+
+  <rect x="88" y="96" width="920" height="390" rx="28" fill="rgba(10,20,36,0.78)" stroke="rgba(255,255,255,0.1)"/>
+  <rect x="1048" y="96" width="464" height="390" rx="28" fill="rgba(10,20,36,0.78)" stroke="rgba(255,255,255,0.1)"/>
+
+  <rect x="120" y="128" width="205" height="44" rx="22" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)"/>
+  <text x="223" y="157" text-anchor="middle" fill="#7DD3FC" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="1.8">PUBLIC DEMO SITE</text>
+
+  <text x="120" y="230" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="700" letter-spacing="-2">StarDance Slack Bot</text>
+  <text x="120" y="295" fill="#AEBDD1" font-family="Inter, Arial, sans-serif" font-size="24">A polished browser demo for a playful Slack command bot.</text>
+
+  <rect x="120" y="336" width="186" height="52" rx="26" fill="url(#g1)"/>
+  <defs>
+    <linearGradient id="g1" x1="120" y1="336" x2="306" y2="388" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7EE787"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </linearGradient>
+  </defs>
+  <rect x="324" y="336" width="186" height="52" rx="26" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="213" y="370" text-anchor="middle" fill="#06111F" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">Open preview</text>
+  <text x="417" y="370" text-anchor="middle" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">Randomize</text>
+
+  <rect x="112" y="556" width="604" height="220" rx="26" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="744" y="556" width="784" height="220" rx="26" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
+
+  <text x="144" y="602" fill="#7DD3FC" font-family="Inter, Arial, sans-serif" font-size="18" letter-spacing="4">COMMAND CATALOG</text>
+  <text x="144" y="648" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">/dsb-weather</text>
+  <text x="144" y="690" fill="#AEBDD1" font-family="Inter, Arial, sans-serif" font-size="20">Fetch instant weather for any city.</text>
+  <text x="144" y="730" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">/dsb-trivia</text>
+  <text x="144" y="772" fill="#AEBDD1" font-family="Inter, Arial, sans-serif" font-size="20">Return a random trivia question with the answer hidden.</text>
+
+  <text x="776" y="602" fill="#FFD166" font-family="Inter, Arial, sans-serif" font-size="18" letter-spacing="4">DEMO PREVIEW</text>
+  <rect x="776" y="628" width="720" height="116" rx="22" fill="#07111F" stroke="rgba(255,255,255,0.08)"/>
+  <text x="808" y="676" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">/dsb-help</text>
+  <text x="808" y="718" fill="#D5E1EF" font-family="Inter, Arial, sans-serif" font-size="20">Open Slack and type /dsb-help to see the command guide.</text>
+
+  <text x="88" y="840" fill="#AEBDD1" font-family="Inter, Arial, sans-serif" font-size="18">Built as a public demo for the StarDance Slack Bot.</text>
+</svg>

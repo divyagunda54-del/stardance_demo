@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarDance Slack Bot Demo</title>
+    <meta
+      name="description"
+      content="A public demo site for the StarDance Slack Bot, showing the command catalog, live previews, and local setup."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07111f;
+        --bg-soft: #0c1b31;
+        --panel: rgba(10, 20, 36, 0.78);
+        --panel-border: rgba(255, 255, 255, 0.1);
+        --text: #f4f7fb;
+        --muted: #aebdd1;
+        --accent: #7ee787;
+        --accent-2: #7dd3fc;
+        --warning: #ffd166;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 32%),
+          radial-gradient(circle at 85% 10%, rgba(126, 231, 135, 0.18), transparent 22%),
+          linear-gradient(180deg, #050b14 0%, var(--bg) 52%, #050911 100%);
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 56px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+      }
+
+      .hero-main {
+        padding: 32px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-main::after {
+        content: "";
+        position: absolute;
+        inset: auto -80px -100px auto;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(125, 211, 252, 0.25), transparent 70%);
+        pointer-events: none;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--accent-2);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 20px 0 14px;
+        font-size: clamp(2.6rem, 5vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 62ch;
+        color: var(--muted);
+        font-size: 1.03rem;
+        line-height: 1.65;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .button {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 160ms ease, opacity 160ms ease, background 160ms ease;
+      }
+
+      .button:hover { transform: translateY(-1px); }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #06111f;
+      }
+
+      .button.secondary {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .hero-side {
+        padding: 22px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .stat-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat,
+      .card,
+      .demo,
+      .section {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+      }
+
+      .stat {
+        padding: 18px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .section {
+        margin-top: 24px;
+        padding: 22px;
+      }
+
+      .section h2 {
+        margin: 0 0 12px;
+        font-size: 1.2rem;
+        letter-spacing: -0.03em;
+      }
+
+      .command-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .card .command {
+        color: var(--accent-2);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .demo {
+        margin-top: 24px;
+        padding: 22px;
+      }
+
+      .demo-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .chip {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .preview {
+        padding: 18px;
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(7, 17, 31, 0.95), rgba(12, 23, 40, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        min-height: 160px;
+      }
+
+      .preview .label {
+        color: var(--warning);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .preview h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      .preview p {
+        margin: 0;
+        color: #d5e1ef;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+
+      .footer {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .command-grid,
+        .stat-grid { grid-template-columns: 1fr; }
+
+        .wrap { width: min(100% - 20px, 1120px); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="eyebrow">Public demo site</div>
+          <h1>StarDance Slack Bot for fast, playful slash commands.</h1>
+          <p class="lede">
+            This demo site gives judges and visitors something to click immediately: a polished front end,
+            command previews, and a quick way to understand what the bot does before opening Slack.
+          </p>
+          <div class="hero-actions">
+            <button class="button primary" type="button" data-demo="help">Open command preview</button>
+            <button class="button secondary" type="button" data-demo="random">Randomize a command</button>
+          </div>
+        </div>
+
+        <aside class="panel hero-side">
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>7</strong>
+              <span>slash commands documented</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Nest deployment target</span>
+            </div>
+            <div class="stat">
+              <strong>Socket Mode</strong>
+              <span>Slack-native connection</span>
+            </div>
+            <div class="stat">
+              <strong>Node.js</strong>
+              <span>single-process runtime</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>Live health</h2>
+            <p style="margin:0;color:var(--muted);line-height:1.6;">
+              The app serves this page from <strong>/</strong> and exposes a small health endpoint at <strong>/api/health</strong>.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section">
+        <h2>Command catalog</h2>
+        <div class="command-grid">
+          <div class="card"><div class="command">/dsb-weather</div><p>Fetch instant weather for any city.</p></div>
+          <div class="card"><div class="command">/dsb-urban</div><p>Look up slang terms and examples.</p></div>
+          <div class="card"><div class="command">/dsb-trivia</div><p>Return a random trivia question with the answer hidden.</p></div>
+          <div class="card"><div class="command">/dsb-dadjoke</div><p>Serve a clean dad joke on demand.</p></div>
+          <div class="card"><div class="command">/dsb-catfact</div><p>Drop a cat fact into the channel.</p></div>
+          <div class="card"><div class="command">/dsb-ping</div><p>Measure response latency in milliseconds.</p></div>
+        </div>
+      </section>
+
+      <section class="demo">
+        <div class="demo-toolbar">
+          <button class="chip" type="button" data-demo="weather">Weather</button>
+          <button class="chip" type="button" data-demo="trivia">Trivia</button>
+          <button class="chip" type="button" data-demo="dadjoke">Dad joke</button>
+          <button class="chip" type="button" data-demo="catfact">Cat fact</button>
+          <button class="chip" type="button" data-demo="hello">Hello</button>
+        </div>
+        <div class="preview" id="preview" aria-live="polite">
+          <div class="label">Demo preview</div>
+          <h3>/dsb-help</h3>
+          <p>Open Slack and type /dsb-help to see the bot's command guide.</p>
+        </div>
+      </section>
+
+      <div class="footer">
+        Built as a public demo for the StarDance Slack Bot. Deploy it somewhere public, then replace the README live demo link with the final URL.
+      </div>
+    </main>
+
+    <script>
+      const previews = {
+        help: {
+          title: "/dsb-help",
+          text: "Open Slack and type /dsb-help to see the command catalog and usage guide."
+        },
+        random: {
+          title: "Random command",
+          text: "Try /dsb-weather, /dsb-trivia, or /dsb-dadjoke for a quick demo."
+        },
+        weather: {
+          title: "/dsb-weather Boston",
+          text: "Boston: Partly cloudy, 19°C, feels like 18°C."
+        },
+        trivia: {
+          title: "/dsb-trivia",
+          text: "Trivia: What planet is known as the Red Planet?\nAnswer: Mars"
+        },
+        dadjoke: {
+          title: "/dsb-dadjoke",
+          text: "I only know 25 letters of the alphabet. I don't know y."
+        },
+        catfact: {
+          title: "/dsb-catfact",
+          text: "Cats spend about 70% of their lives sleeping."
+        },
+        hello: {
+          title: "/dsb-hello",
+          text: "Hello <@user>! Welcome to my Slackbot."
+        }
+      };
+
+      const preview = document.getElementById("preview");
+
+      function setPreview(key) {
+        const item = previews[key] || previews.help;
+        preview.innerHTML = `
+          <div class="label">Demo preview</div>
+          <h3>${item.title}</h3>
+          <p>${item.text.replace(/\n/g, "<br />")}</p>
+        `;
+      }
+
+      document.querySelectorAll("[data-demo]").forEach((button) => {
+        button.addEventListener("click", () => setPreview(button.dataset.demo));
+      });
+
+      setPreview("help");
+    </script>
+  </body>
+</html>

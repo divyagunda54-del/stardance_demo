@@ -1,6 +1,16 @@
-# 🤖 StarDance Slack Bot
+# 🤖 StarDance Slack Bot + Public Demo Site
 
-Welcome to the **StarDance Slack Bot**! This is a high-performance, feature-rich, and interactive Slack assistant designed for the Hack Club StarDance mission. Built on **Node.js** using the **`@slack/bolt`** SDK, it interfaces with various public REST APIs and operates entirely via **Socket Mode**—meaning it connects instantly without needing any public URL or reverse-proxy routing!
+Welcome to the **StarDance Slack Bot**. It ships with a public browser demo and a Slack assistant backend, both powered by **Node.js**. The web demo gives visitors an immediate way to explore the project in a browser, while the Slack bot handles the slash-command experience through **`@slack/bolt`**.
+
+**Live demo:** https://slackbothack.netlify.app
+
+The Netlify deploy should publish the `public/` folder so the homepage loads directly in a browser without any setup.
+
+---
+
+## Screenshot
+
+![StarDance Slack Bot demo preview](public/demo-preview.svg)
 
 ---
 
@@ -82,7 +92,14 @@ cd stardance_demo
 npm install
 ```
 
-Create a **`.env`** file in your root folder:
+Open the public demo in a browser after starting the app at `http://localhost:3000`.
+
+Copy the provided template into a local **`.env`** file in your root folder:
+```bash
+cp .env.example .env
+```
+
+Then fill in your real Slack tokens:
 ```env
 SLACK_BOT_TOKEN=xoxb-your-bot-user-token
 SLACK_APP_TOKEN=xapp-your-app-level-token
@@ -90,6 +107,7 @@ SLACK_APP_TOKEN=xapp-your-app-level-token
 
 > [!WARNING]
 > Keep your `.env` tokens secure! Never push them to public repositories. Double-check that `.env` is listed inside your `.gitignore` file.
+> If these tokens were exposed anywhere public, rotate them in Slack before shipping.
 
 Start the bot locally:
 ```bash
