@@ -3,71 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const { App } = require("@slack/bolt");
-const axios = require("axios");
-
-const web = express();
-const publicDir = path.join(__dirname, "public");
-
-web.use(express.static(publicDir));
-
-web.get("/api/health", (_req, res) => {
-  res.json({ ok: true, service: "stardance-demo" });
-});
-
-const webPort = process.env.PORT || 3000;
-
-web.listen(webPort, () => {
-  console.log(`web demo is running on port ${webPort}`);
-});
-
-const slackBotToken = process.env.SLACK_BOT_TOKEN;
-const slackAppToken = process.env.SLACK_APP_TOKEN;
-
-if (slackBotToken && slackAppToken) {
-  const app = new App({
-    token: slackBotToken,
-    appToken: slackAppToken,
-    socketMode: true
-  });
-
-  app.command("/dsb-ping", async ({ command, ack, respond }) => {
-    const start = Date.now();
-    await ack();
-    const latency = Date.now() - start;
-    await respond({ text: `Pong!\nLatency: ${latency}ms` });
-  });
-
-  app.command("/dsb-hello", async ({ command, ack, respond }) => {
-    await ack();
-    await respond({ text: `Hello <@${command.user_id}>! Welcome to my Slackbot! 🎉` });
-  });
-
-  app.command("/dsb-help", async ({ ack, respond }) => {
-    await ack();
-    await respond({
-      text: `*Advanced Slack Bot Help*
-
-*General Commands:*
-\`/dsb-help\` - Show this menu
-\`/dsb-qotd\` - Get the quote of the day
-\`/dsb-trivia\` - Get a random trivia question
-\`/dsb-dadjoke\` - Get a random dad joke
-\`/dsb-urban <term>\` - Look up a term on Urban Dictionary
-
-*Utility Commands:*
-\`/dsb-weather <city>\` - Get weather info
-\`/dsb-catfact\` - Get a cat fact`
-    });
-  });
-
-  app.command("/dsb-catfact", async ({ ack, respond }) => {
-    await ack();
-    try {
-      const res = await axios.get("https://catfact.ninja/fact");
-      await respond({ text: `🐱 Cat Fact: ${res.data.fact}` });
-    } catch (e) {
-      await respond({ text: "Couldn't fetch a cat fact right now." });
-    }
+// Bootstrap loader — keeps root file small and loads server implementation from src/
+require('./src/server');
   });
 
   app.command("/dsb-joker", async ({ ack, respond }) => {
@@ -150,10 +87,17 @@ if (slackBotToken && slackAppToken) {
     }
   });
 
-  (async () => {
-    await app.start();
-    console.log("bot is running!");
-  })();
+    (async () => {
+      try {
+        await app.start();
+        console.log("bot is running!");
+      } catch (e) {
+        console.error("Slack app failed to start:", e && e.message ? e.message : e);
+      }
+    })();
+  } catch (e) {
+    console.error("Slack initialization failed:", e && e.message ? e.message : e);
+  }
 } else {
   console.log("Slack bot disabled. Set SLACK_BOT_TOKEN and SLACK_APP_TOKEN to enable it.");
 }

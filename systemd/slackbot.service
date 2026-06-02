@@ -1,0 +1,16 @@
+[Unit]
+Description=Slack Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+WorkingDirectory=/home/slackfm/stardance_demo
+ExecStart=/usr/bin/node index.js
+Environment=PORT=3000
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=default.target
