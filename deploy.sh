@@ -14,7 +14,7 @@ echo "✅ Done"
 echo ""
 echo "📤 [Step 2/3] Uploading files..."
 scp -o ConnectTimeout=30 .env index.js package.json package-lock.json slackbot.service ${USER}@${HOST}:${DEST}/
-scp -o ConnectTimeout=30 -r public ${USER}@${HOST}:${DEST}/
+scp -o ConnectTimeout=30 -r public src ${USER}@${HOST}:${DEST}/
 if [ $? -ne 0 ]; then
   echo "❌ Upload failed. Retrying..."
   sleep 2
