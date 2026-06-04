@@ -2,9 +2,7 @@
 
 Welcome to the **StarDance Slack Bot**. It ships with a public browser demo and a Slack assistant backend, both powered by **Node.js**. The web demo gives visitors an immediate way to explore the project in a browser, while the Slack bot handles the slash-command experience through **`@slack/bolt`**.
 
-**Live demo:** https://slackbothack.netlify.app
-
-The Netlify deploy should publish the `public/` folder so the homepage loads directly in a browser without any setup.
+**Slack Channel Demo:** [Join Hack Club Slack](https://hackclub.to/join-slack) and test the bot commands inside the `#bot-spam` channel! You can interact directly with the bot using any of the registered slash commands listed in this document.
 
 ---
 
@@ -174,3 +172,9 @@ Use these standard commands to control your bot's lifecycle:
 | Slash Command displays **"Dispatch Error"** | The bot script is not running or socket is offline | Verify your local command is running, or run `systemctl status slackbot` on Nest to verify active uptime. |
 | Commands fail with **"Timeout Error"** | Code did not invoke `ack()` within 3 seconds | Slack requires Bolt to call `await ack()` immediately at the start of command execution. |
 | Slash Command **doesn't appear in Slack** | The command was not registered in Slack dashboard | Go to *Slack Apps console → Slash Commands* and verify command name matches exactly. |
+
+---
+
+## 🤖 AI Declaration
+
+I declare that I used AI assistance (specifically Google's Gemini-powered assistant Antigravity) to help generate, format, and refine the documentation in this README.md file.
