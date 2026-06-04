@@ -238,11 +238,38 @@
       hello: { cmd: 'dsb-hello', text: '' }
     };
 
+    const mockResponses = {
+      'dsb-help': {
+        ok: true,
+        text: "Commands: /dsb-help, /dsb-qotd, /dsb-trivia, /dsb-dadjoke, /dsb-urban <term>, /dsb-weather <city>, /dsb-catfact"
+      },
+      'dsb-weather': {
+        ok: true,
+        text: "☀️ Boston: +19°C (Partly cloudy, Wind 12km/h)"
+      },
+      'dsb-trivia': {
+        ok: true,
+        text: "🧠 What is the capital of France?\nAnswer: Paris"
+      },
+      'dsb-dadjoke': {
+        ok: true,
+        text: "😂 Why don't scientists trust atoms? Because they make up everything!"
+      },
+      'dsb-catfact': {
+        ok: true,
+        text: "🐱 Cat Fact: Cats have 32 muscles in each ear."
+      },
+      'dsb-hello': {
+        ok: true,
+        text: "👋 Hello! Welcome to the StarDance demo."
+      }
+    };
+
     const previewCmd = document.getElementById('preview-cmd');
     const previewText = document.getElementById('preview-text');
 
     async function fetchCommand(cmd, text = '') {
-      previewCmd.textContent = `/${cmd}`;
+      previewCmd.textContent = `/${cmd}${text ? ' ' + text : ''}`;
       previewText.textContent = 'Loading...';
 
       try {
@@ -251,6 +278,13 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cmd, text })
         });
+        
+        if (r.status === 404) {
+          console.warn(`API returned 404. Falling back to simulation for: ${cmd}`);
+          useMockResponse(cmd);
+          return;
+        }
+
         const j = await r.json();
         if (j && j.ok) {
           previewText.textContent = j.text;
@@ -260,7 +294,17 @@
           previewText.textContent = 'Unknown error';
         }
       } catch (e) {
-        previewText.textContent = `Network error: ${e.message}`;
+        console.warn(`Network error fetching API: ${e.message}. Falling back to simulation for: ${cmd}`);
+        useMockResponse(cmd);
+      }
+    }
+
+    function useMockResponse(cmd) {
+      const mock = mockResponses[cmd];
+      if (mock) {
+        previewText.textContent = `${mock.text}\n\n(Simulated response — backend offline)`;
+      } else {
+        previewText.textContent = `Command /${cmd} is not available in offline simulation mode.`;
       }
     }
 
