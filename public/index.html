@@ -273,7 +273,9 @@
       previewText.textContent = 'Loading...';
 
       try {
-        const r = await fetch('/api/command', {
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const backendUrl = isLocal ? '' : 'https://slackfm.hackclub.app';
+        const r = await fetch(`${backendUrl}/api/command`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cmd, text })
