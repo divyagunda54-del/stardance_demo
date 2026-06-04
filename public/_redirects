@@ -1,2 +1,0 @@
-# Cloudflare Pages / Workers redirects configuration
-# Proxying is now handled programmatically in src/worker.js

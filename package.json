@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node_modules/.bin/postcss src/styles.css -o public/styles.css",
     "dev": "npm run build -- --watch",
-    "start": "npm run build && node index.js"
+    "start": "npm run build && node index.js",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "dependencies": {
     "@slack/bolt": "^4.7.3",
@@ -18,5 +20,7 @@
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^3.4.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "wrangler": "^3.109.0"
+  }
 }

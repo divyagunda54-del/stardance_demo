@@ -1,20 +1,18 @@
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Proxy /api/* requests to the external backend server on Nest
-    if (url.pathname.startsWith("/api/")) {
-      const targetUrl = new URL(request.url);
-      targetUrl.hostname = "slackfm.hackclub.app";
-      targetUrl.protocol = "https:";
-      targetUrl.port = "";
-
-      // Create a proxy request with the updated URL and original request options
-      const proxyRequest = new Request(targetUrl.toString(), request);
-      return fetch(proxyRequest);
+    // Proxy /api/* to the real backend
+    if (url.pathname.startsWith('/api/')) {
+      const backendUrl = 'https://slackfm.hackclub.app' + url.pathname + url.search;
+      return fetch(backendUrl, {
+        method: request.method,
+        headers: request.headers,
+        body: request.body,
+      });
     }
 
-    // Serve static assets from public/ directory
+    // Serve static assets for everything else
     return env.ASSETS.fetch(request);
   }
 };
