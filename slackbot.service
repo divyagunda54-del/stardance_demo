@@ -9,7 +9,7 @@ Restart=always
 RestartSec=5
 WorkingDirectory=/home/slackfm/stardance_demo
 ExecStart=/usr/bin/node index.js
-Environment=PORT=3000
+Environment=PORT=80
 Environment=NODE_ENV=production
 
 [Install]
