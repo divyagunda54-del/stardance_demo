@@ -1,5 +1,13 @@
 require("dotenv").config();
 
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});
+
+process.on("uncaughtException", (error) => {
+  console.error("Uncaught Exception thrown:", error);
+});
+
 const express = require("express");
 const path = require("path");
 const { App } = require("@slack/bolt");
@@ -222,6 +230,10 @@ if (tokensValid) {
       token: slackBotToken,
       appToken: slackAppToken,
       socketMode: true
+    });
+
+    app.error(async (error) => {
+      console.error("Slack Bolt error caught:", error.message || error);
     });
 
     app.command("/dsb-ping", async ({ command, ack, respond }) => {

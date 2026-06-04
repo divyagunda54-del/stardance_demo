@@ -4,7 +4,7 @@ export default {
 
     // Proxy /api/* to the real backend
     if (url.pathname.startsWith('/api/')) {
-      const backendUrl = 'https://ux2rk0yn.up.railway.app' + url.pathname + url.search;
+      const backendUrl = 'https://stardancedemo-production.up.railway.app' + url.pathname + url.search;
       return fetch(backendUrl, {
         method: request.method,
         headers: request.headers,
