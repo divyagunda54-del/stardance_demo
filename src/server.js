@@ -112,7 +112,7 @@ async function getTrivia() {
 }
 
 async function getWeather(city) {
-  if (!city) return "Please provide a city! Usage: `/dsb-weather <city>`";
+  if (!city) return null;
   try {
     const r = await axios.get(`https://wttr.in/${encodeURIComponent(city)}?format=3`, { timeout: 3000 });
     return r.data;
@@ -122,7 +122,7 @@ async function getWeather(city) {
 }
 
 async function getUrbanDefinition(term) {
-  if (!term) return "Please provide a term! Usage: `/dsb-urban <term>`";
+  if (!term) return null;
   try {
     const r = await axios.get(`https://api.urbandictionary.com/v0/define?term=${encodeURIComponent(term)}`, { timeout: 3000 });
     if (r.data.list && r.data.list.length > 0) {
@@ -176,6 +176,7 @@ web.post("/api/command", async (req, res) => {
         return res.json({ ok: true, text: `🧠 ${q.question}\nAnswer: ${q.answer}` });
       }
       case "dsb-urban": {
+        if (!text) return res.status(400).json({ ok: false, error: "missing term" });
         const def = await getUrbanDefinition(text);
         if (def) {
           return res.json({ ok: true, text: `${def.word}: ${def.definition}` });
@@ -183,6 +184,7 @@ web.post("/api/command", async (req, res) => {
         return res.json({ ok: true, text: `No definition found for \"${text}\".` });
       }
       case "dsb-weather": {
+        if (!text) return res.status(400).json({ ok: false, error: "missing city" });
         const weatherText = await getWeather(text);
         return res.json({ ok: true, text: weatherText });
       }
@@ -259,6 +261,10 @@ if (tokensValid) {
     app.command("/dsb-urban", async ({ command, ack, respond }) => {
       await ack();
       const term = command.text;
+      if (!term) {
+        await respond({ text: "Please provide a term! Usage: `/dsb-urban <term>`" });
+        return;
+      }
       const def = await getUrbanDefinition(term);
       if (def) {
         await respond({ text: `📖 *${def.word}*\n${def.definition}\n\n*Example:*\n_${def.example}_` });
@@ -270,6 +276,10 @@ if (tokensValid) {
     app.command("/dsb-weather", async ({ command, ack, respond }) => {
       await ack();
       const city = command.text;
+      if (!city) {
+        await respond({ text: "Please provide a city! Usage: `/dsb-weather <city>`" });
+        return;
+      }
       const text = await getWeather(city);
       await respond({ text });
     });
