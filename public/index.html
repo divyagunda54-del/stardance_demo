@@ -146,10 +146,17 @@
             <div class="mt-4 text-primary text-sm font-semibold group-hover:translate-x-1 transition">Try it →</div>
           </button>
 
-          <button class="card group hover:bg-dark-bg transition cursor-pointer text-left" data-demo="catfact">
+          <button class="card group hover:bg-dark-bg transition cursor-pointer text-left" data-demo="qotd">
             <div class="text-3xl mb-3">📖</div>
             <div class="font-bold text-lg">/dsb-qotd</div>
             <div class="text-gray-400 text-sm">Inspiring quotes of the day</div>
+            <div class="mt-4 text-primary text-sm font-semibold group-hover:translate-x-1 transition">Try it →</div>
+          </button>
+
+          <button class="card group hover:bg-dark-bg transition cursor-pointer text-left" data-demo="urban">
+            <div class="text-3xl mb-3">📚</div>
+            <div class="font-bold text-lg">/dsb-urban</div>
+            <div class="text-gray-400 text-sm">Look up any term on Urban Dictionary</div>
             <div class="mt-4 text-primary text-sm font-semibold group-hover:translate-x-1 transition">Try it →</div>
           </button>
 
@@ -173,6 +180,8 @@
           <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="trivia">🧠 Trivia</button>
           <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="dadjoke">😂 Dad Joke</button>
           <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="catfact">🐱 Cat Fact</button>
+          <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="qotd">📖 Quote</button>
+          <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="urban">📚 Urban Dict</button>
           <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="hello">👋 Hello</button>
         </div>
 
@@ -235,6 +244,8 @@
       trivia: { cmd: 'dsb-trivia', text: '' },
       dadjoke: { cmd: 'dsb-dadjoke', text: '' },
       catfact: { cmd: 'dsb-catfact', text: '' },
+      qotd: { cmd: 'dsb-qotd', text: '' },
+      urban: { cmd: 'dsb-urban', text: 'stardance' },
       hello: { cmd: 'dsb-hello', text: '' }
     };
 
@@ -258,6 +269,14 @@
       'dsb-catfact': {
         ok: true,
         text: "🐱 Cat Fact: Cats have 32 muscles in each ear."
+      },
+      'dsb-qotd': {
+        ok: true,
+        text: "“The only limit to our realization of tomorrow is our doubts of today.” — Franklin D. Roosevelt"
+      },
+      'dsb-urban': {
+        ok: true,
+        text: "stardance: A legendary performance that brings pure joy and high energy to the Slack workspace."
       },
       'dsb-hello': {
         ok: true,

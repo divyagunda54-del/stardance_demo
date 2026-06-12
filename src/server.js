@@ -90,12 +90,15 @@ async function getDadJoke() {
 
 async function getQuote() {
   try {
-    const r = await axios.get("https://api.quotable.io/random", { timeout: 3000 });
-    return `"${r.data.content}" — ${r.data.author}`;
+    const r = await axios.get("https://zenquotes.io/api/random", { timeout: 3000 });
+    if (r.data && r.data[0] && r.data[0].q) {
+      return `"${r.data[0].q}" — ${r.data[0].a}`;
+    }
   } catch (e) {
-    const randomQuote = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
-    return `"${randomQuote.content}" — ${randomQuote.author}`;
+    console.warn("Quote API request failed, using local fallback quote:", e.message);
   }
+  const randomQuote = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+  return `"${randomQuote.content}" — ${randomQuote.author}`;
 }
 
 async function getTrivia() {
@@ -276,7 +279,43 @@ if (tokensValid) {
     app.command("/dsb-trivia", async ({ ack, respond }) => {
       await ack();
       const q = await getTrivia();
-      await respond({ text: `🧠 *Trivia (${q.difficulty} ${q.category})*\n${q.question}\n\n*Answer:* ||${q.answer}||` });
+      await respond({
+        response_type: "in_channel",
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `🧠 *Trivia (${q.difficulty} — ${q.category})*\n${q.question}`
+            }
+          },
+          {
+            type: "actions",
+            elements: [
+              {
+                type: "button",
+                text: {
+                  type: "plain_text",
+                  text: "Reveal Answer",
+                  emoji: true
+                },
+                value: q.answer,
+                action_id: "reveal_answer"
+              }
+            ]
+          }
+        ]
+      });
+    });
+
+    app.action("reveal_answer", async ({ ack, body, respond }) => {
+      await ack();
+      const answer = body.actions[0].value;
+      await respond({
+        text: `🙈 *Answer:* ${answer}`,
+        response_type: "ephemeral",
+        replace_original: false
+      });
     });
 
     app.command("/dsb-urban", async ({ command, ack, respond }) => {
