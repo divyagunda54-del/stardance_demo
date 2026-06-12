@@ -30,9 +30,9 @@
     <section class="min-h-screen flex items-center justify-center px-6 py-20">
       <div class="max-w-5xl mx-auto text-center space-y-8">
         <!-- Badge -->
-        <div class="inline-block">
-          <span class="glass px-4 py-2 text-sm font-semibold">
-            <span class="mr-2">⚡</span>New: Premium API endpoints
+        <div class="inline-block cursor-pointer" onclick="window.open('https://hackclub.enterprise.slack.com/archives/C0B8B8SR86A', '_blank')">
+          <span class="glass px-4 py-2 text-sm font-semibold hover:border-gray-500 transition">
+            <span class="mr-2">💬</span>Join Hack Club Slack public channel to test live!
           </span>
         </div>
 
@@ -174,6 +174,20 @@
     <section id="demo" class="py-20 px-6 bg-dark-surface/50">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-4xl font-bold text-center mb-12">Try It Live</h2>
+
+        <!-- Slack Test Channel Callout -->
+        <div class="mb-12 p-6 rounded-xl border border-purple-900/30 bg-purple-950/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div class="flex items-center gap-4 text-left">
+            <span class="text-3xl">💬</span>
+            <div>
+              <div class="font-bold text-white text-lg">Test StarDance Live inside Slack</div>
+              <p class="text-gray-400 text-sm">Join the public Hack Club Slack channel to run the bot commands in real-time!</p>
+            </div>
+          </div>
+          <button class="px-6 py-3 rounded-lg bg-purple-900 hover:bg-purple-800 text-white font-semibold transition shrink-0" onclick="window.open('https://hackclub.enterprise.slack.com/archives/C0B8B8SR86A', '_blank')">
+            Open Slack Channel
+          </button>
+        </div>
 
         <div class="flex flex-wrap gap-3 justify-center mb-8">
           <button class="chip px-4 py-2 rounded-full glass hover:border-gray-500 transition" data-demo="weather">🌤️ Weather</button>
