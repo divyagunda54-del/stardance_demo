@@ -50,15 +50,12 @@ The bot implements an extensive array of utility, info-seeking, and entertainmen
 | :--- | :--- | :--- | :--- |
 | `/dsb-weather` | Fetch instant formatting-free weather reports | `/dsb-weather Boston` | `https://wttr.in/<city>?format=3` |
 | `/dsb-urban` | Query slang terms and definitions from Urban Dictionary | `/dsb-urban shipping` | `https://api.urbandictionary.com` |
-| removed due to overlap! |
-|/dsb-ping has been removed!|
 | `/dsb-hello` | Receive a customized greeting mention | `/dsb-hello` | *User Resolver* |
 
 ### 😂 Entertainment & Leisure Commands
 | Slash Command | Description | Example Usage | Public REST API |
 | :--- | :--- | :--- | :--- |
 | `/dsb-trivia` | Fetch a random trivia question with spoiler answers | `/dsb-trivia` | `https://opentdb.com` |
-| `/dsb-catfact` | Get a random fun fact about cats | `/dsb-catfact` | `https://catfact.ninja` |
 | `/dsb-dadjoke` | Receive a random clean dad joke | `/dsb-dadjoke` | `https://icanhazdadjoke.com` |
 | `/dsb-joker` | Retrieve a random joke from the catalog | `/dsb-joker` | `https://sellyourballs.com` |
 
