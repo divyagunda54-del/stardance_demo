@@ -50,9 +50,6 @@ The bot implements an extensive array of utility, info-seeking, and entertainmen
 | :--- | :--- | :--- | :--- |
 | `/dsb-weather` | Fetch instant formatting-free weather reports | `/dsb-weather Boston` | `https://wttr.in/<city>?format=3` |
 | `/dsb-urban` | Query slang terms and definitions from Urban Dictionary | `/dsb-urban shipping` | `https://api.urbandictionary.com` |
-| `/dsb-hello` | Receive a customized greeting mention | `/dsb-hello` | *User Resolver* |
-
-### 😂 Entertainment & Leisure Commands
 | Slash Command | Description | Example Usage | Public REST API |
 | :--- | :--- | :--- | :--- |
 | `/dsb-trivia` | Fetch a random trivia question with spoiler answers | `/dsb-trivia` | `https://opentdb.com` |
