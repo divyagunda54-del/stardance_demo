@@ -50,7 +50,7 @@ The bot implements an extensive array of utility, info-seeking, and entertainmen
 | :--- | :--- | :--- | :--- |
 | `/dsb-weather` | Fetch instant formatting-free weather reports | `/dsb-weather Boston` | `https://wttr.in/<city>?format=3` |
 | `/dsb-urban` | Query slang terms and definitions from Urban Dictionary | `/dsb-urban shipping` | `https://api.urbandictionary.com` |
-| `/dsb-help` | Open the interactive help and navigation guide | `/dsb-help` | *Internal Router* |
+| removed due to overlap! |
 |/dsb-ping has been removed!|
 | `/dsb-hello` | Receive a customized greeting mention | `/dsb-hello` | *User Resolver* |
 
