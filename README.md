@@ -56,9 +56,6 @@ The bot implements an extensive array of utility, info-seeking, and entertainmen
 | Slash Command | Description | Example Usage | Public REST API |
 | :--- | :--- | :--- | :--- |
 | `/dsb-trivia` | Fetch a random trivia question with spoiler answers | `/dsb-trivia` | `https://opentdb.com` |
-| `/dsb-dadjoke` | Receive a random clean dad joke | `/dsb-dadjoke` | `https://icanhazdadjoke.com` |
-| `/dsb-joker` | Retrieve a random joke from the catalog | `/dsb-joker` | `https://sellyourballs.com` |
-
 ---
 
 ## 🚀 Setup & Local Installation
