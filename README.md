@@ -56,6 +56,7 @@ The bot implements an extensive array of utility, info-seeking, and entertainmen
 | Slash Command | Description | Example Usage | Public REST API |
 | :--- | :--- | :--- | :--- |
 | `/dsb-trivia` | Fetch a random trivia question with spoiler answers | `/dsb-trivia` | `https://opentdb.com` |
+|dsb-joker |
 ---
 
 ## 🚀 Setup & Local Installation
